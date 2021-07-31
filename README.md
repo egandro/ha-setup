@@ -20,7 +20,7 @@
 - In the Edit Settings tab add the detectd USB Device to the VM. https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-507F65CD-E855-4527-B076-567F27C98A29.html
 
 
-### Paring
+### Pairing 
 
 You need to pair modern cell phones in order to allow tracking. The not tracked BT Mac is randomized.
 
