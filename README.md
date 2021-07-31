@@ -75,3 +75,15 @@ Link the secrets.yml file:
 # config $ cd esphome/
 # esphome $ ln -s ../secrets.yaml secrets.yaml
 ```
+
+The ESPHome samples requires some settings in the secrets.yaml
+  
+```
+# ESPHome needs the " in strings
+wifi_ssid: "My_Wifi_SSID"
+wifi_password: "0123456789"
+
+esp_home_assistant_api_pw: "0123456789"
+esp_home_fallback_ap_pw: "0123456789"
+```
+  
