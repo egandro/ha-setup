@@ -392,6 +392,8 @@ device_tracker:
   
 ### FireTV / Android TV Boxes
   
+- Add this to configuration.yaml
+  
 ```
 media_player:
   # Use the Python ADB implementation
@@ -404,7 +406,16 @@ media_player:
     get_sources: false
 ```
 
+### Text to speech local language support
   
+- Add this to configuration.yaml
+  
+```
+# Text to speech
+tts:
+  - platform: google_translate
+    language: "de"
+```  
 
   
 
