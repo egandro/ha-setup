@@ -460,9 +460,11 @@ $ cd config
 $ cd custom_components
 $ wget -O tapo_control.zip https://github.com/JurajNyiri/HomeAssistant-Tapo-Control/archive/refs/heads/main.zip 
 $ unzip tapo_control.zip
-$ mv HomeAssistant-Tapo-Control-main tapo_control  
+$ mv HomeAssistant-Tapo-Control-main/custom_components/tapo_control .
 $ rm tapo_control.zip
+$ rm -rf HomeAssistant-Tapo-Control-main
 ```
 
 - Restart Server
+- Clear Browser Cache
 - Configuration / Integrations / + / Tapo: Cameras Control
