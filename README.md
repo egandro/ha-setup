@@ -146,6 +146,10 @@ $ wget -q -O - https://install.hacs.xyz | bash -
 - Clear Browser Cache
 - Enable the HACS Integration: https://hacs.xyz/docs/configuration/basic
 - Configuration / Integrations / "+" Button / Search for HACS
+- Wait ... confirm the 4 checkboxes of the dialog ...
+- Authenticate the Device to Github / your Github account
+- Click "HACS" on the left bar 
+- Starting "HACS" the first time will take a while
 
   
 ## Additional Setup Steps
