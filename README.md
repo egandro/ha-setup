@@ -96,8 +96,7 @@ esp_home_fallback_ap_pw: "0123456789"
 - InfluxDB Admin / Databases / Create Database "homeassistant" (duration as you wish)
 - InfluxDB Admin / Users / Create User "homeassistant" (use a strong passwort, put this in secrets.yaml - key influxdb_password )
 - InfluxDB Admin / Users / click user "homeassistant" / click permission / click "ALL" / click "Apply"
-
-Add this to configuration.yaml
+- Add this to configuration.yaml
 
 ```
 # https://dummylabs.com/post/2019-01-13-influxdb-part1/
@@ -112,6 +111,8 @@ influxdb:
   max_retries: 3
   default_measurement: state
 ```
+
+- Restart Homeassistant and check if you get values in the Database.
 
 
 ### Grafana
