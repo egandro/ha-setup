@@ -518,3 +518,31 @@ tv_power:
   alias: TV Power
   icon: hass:power-standby
 ```
+
+### Turn On/Off PC
+  
+- Enable / configure WOL (Bios, Operating System, ...)
+- Configure SSH login with SSH Keys
+  - Windows Version with Choco ```choco install mls-software-openssh```
+  - https://community.chocolatey.org/packages/mls-software-openssh
+- Put the public key off /root/config/ssh_keys/ as authorized_key on the target machine
+- Login to HA and test if the keys are working ```ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24```
+- sample config for configuration.yaml
+  
+```
+switch:
+  - platform: wake_on_lan
+    name: PC
+    mac: ab:cd:ef:11:22:33
+    host: "192.168.51.1"
+    broadcast_address: "192.168.51.255"
+    turn_off:
+     service: shell_command.turn_off_pc
+
+shell_command:
+  # Windows version
+  turn_off_pc: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 rundll32.exe powrprof.dll,SetSuspendState 0,1,0"
+  ### # Linux version #https://www.cyberciti.biz/faq/linux-command-to-suspend-hibernate-laptop-netbook-pc/
+  ### turn_off_pc: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 sudo pm-hibernate"
+```
+  
