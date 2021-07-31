@@ -91,6 +91,24 @@ esp_home_fallback_ap_pw: "0123456789"
   
 ### InfluxDB
 
+
+Add this to configuration.yaml
+
+```
+# https://dummylabs.com/post/2019-01-13-influxdb-part1/
+# https://www.home-assistant.io/integrations/influxdb/
+# https://docs.influxdata.com/influxdb/cloud/security/tokens/create-token/
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+```
+
+
 ### Grafana
   
 ## Additional Setup Steps
