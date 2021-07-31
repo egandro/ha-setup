@@ -115,7 +115,8 @@ influxdb:
 - Restart Homeassistant and check if you get values in the Database.
 - open the UI
 - click "Explore"
-- you should see "homeassistant.autogen"
+- click "homeassistant.autogen"
+- you should see some of the data that InfluxDB already collected
 
 
 ### Grafana
