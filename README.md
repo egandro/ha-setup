@@ -469,3 +469,25 @@ $ rm -rf HomeAssistant-Tapo-Control-main
 - Clear Browser Cache
 - Configuration / Integrations / + / Tapo: Cameras Control
 - You will need the email/passwort of the app
+
+  
+### Broadlink (IR Sender / IP Remote control)
+  
+- Install App and configure
+- Configuration / Integrations / Enable the device (it should be auto detected)
+- main configuration is a lot of RTFM
+- Here posible sample of /config/scripts.yaml
+  
+```
+tv_power:
+  sequence:
+  - service: remote.send_command
+    data:
+      command: b64:<however you get this>
+      device: tv_power
+    target:
+      entity_id: remote.broadlink_remote
+  mode: single
+  alias: TV Power
+  icon: hass:power-standby
+```
