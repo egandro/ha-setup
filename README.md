@@ -142,11 +142,9 @@ Now you can configure your dashboards.
 - Supervisor / Add-on Store - click on top right burger menu / enter "https://github.com/bigmoby/hassio-repository-addon"
 - Install "Home Assistant Bigmoby Add-ons"
   
-#### Configure Debian als WG Server
+#### Configure Debian as WireGuard Server
 
 - Reference: https://www.cyberciti.biz/faq/debian-10-set-up-wireguard-vpn-server/
-- IP Adress is public
-- The IP adress gets a CNAME e.g. my-ha.example.com
   
 ```
 $ sudo apt update
@@ -160,11 +158,25 @@ $ sudo -i
 # cd /etc/wireguard/
 # umask 077; wg genkey | tee privatekey | wg pubkey > publickey
 # ls -l privatekey publickey
-# cat privatekey
-## Please note down the private of the server key ##
-# cat publickey
-## Please note down the public of the server key ##
+$ cat privatekey
+## Please note down the private key of the server ##
+$ cat publickey
+## Please note down the public key of the server ##
 # exit
+```
+  
+Unfortunately there is no nice way to create keys on the plugin. So we use "wg" of the server.
+
+```
+$ mkdir -p clientkey
+$ cd clientkey
+$ wg genkey | tee privatekey | wg pubkey > publickey
+$ ls -l privatekey publickey
+$ cat privatekey
+## Please note down the private key of the client ##
+$ cat publickey
+## Please note down the public key of the client ##
+$ cd .. && rm -rf clientkey
 ```
   
 Create a wg0.conf file on the server
@@ -173,20 +185,158 @@ Create a wg0.conf file on the server
 $ sudo vim /etc/wireguard/wg0.conf
 [Interface]
 Address = 192.168.120.1/24
-ListenPort = 51194
+ListenPort = 51820
 PrivateKey = <privatekey_of_the_server>
 
 [Peer]
-PublicKey = <publickey_of_the_client - you don't have this now - change it later>
+PublicKey = <publickey_of_the_client>
 AllowedIPs = 192.168.120.0/24
 ```
+
+#### Configure HomeAssistant as WireGuard Server  
   
 ```
-$ sudo ufw allow 51194/udp # if ufw is enable
+interface:
+  private_key: <privatekey_of_the_client>
+  address: 192.168.120.2/24
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+  post_up: iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
+  post_down: iptables -t nat -D POSTROUTING -o wg0 -j MASQUERADE
+peer:
+  public_key: <publickey_of_the_server>
+  endpoint: IP_OF_YOUR_SERVER:51820
+  allowed_ips:
+    - 192.168.120.0/24
+  persistent_keep_alive: '20'
+```
+
+- Please put the "WireGuard client status API" Port to 51880 - for some crazy reason this is using 80 as default.
+- you can now start the WireGuard client in HA
+  
+  
+#### Enable / Start WireGuard on the Debian Server
+  
+```
+$ sudo ufw allow 51820/udp # if ufw is enable
 $ sudo systemctl enable wg-quick@wg0
 $ sudo systemctl start wg-quick@wg0
 $ sudo systemctl status wg-quick@wg0
 ```
+
+#### Enable Nginx proxy on the Debian Server for LetsEncrypt Certificates
+  
+- IP Adress of the WireGuard is public
+- The IP adress gets a CNAME e.g. my-ha.example.com
+- Install Docker
+- Ensure port 80 / 443 is currently not used
+
+```
+$ sudo mkdir -p /var/opt/nginx-proxy-letsencrypt  
+$ sudo vi /var/opt/nginx-proxy-letsencrypt/start.sh
+#!/bin/bash
+
+mkdir -p /var/opt/nginx-proxy-letsencrypt
+
+docker run \
+  --detach \
+  --restart always \
+  --publish 80:80 \
+  --publish 443:443 \
+  --name nginx-proxy \
+  --volume /var/run/docker.sock:/tmp/docker.sock:ro \
+  --volume /var/opt/nginx-proxy-letsencrypt/nginx-certs:/etc/nginx/certs \
+  --volume /var/opt/nginx-proxy-letsencrypt/nginx-vhost:/etc/nginx/vhost.d \
+  --volume /var/opt/nginx-proxy-letsencrypt/nginx-html:/usr/share/nginx/html \
+  jwilder/nginx-proxy
+
+docker run \
+  --detach \
+  --restart always \
+  --name nginx-proxy-letsencrypt \
+  --volumes-from nginx-proxy \
+  --volume /var/run/docker.sock:/var/run/docker.sock:ro \
+  --volume /etc/acme.sh \
+  --env "DEFAULT_EMAIL=mail@example.com" \
+  jrcs/letsencrypt-nginx-proxy-companion
+```
+
+Start the nginx-proxy-companion  
+```
+$ sudo chmod /var/opt/nginx-proxy-letsencrypt/start.sh
+$ sudo /var/opt/nginx-proxy-letsencrypt/start.sh  
+```
+  
+Create a 2nd proxy for forwarding to the WG VPN. This wil automaticually query the SSL certificat.
+  
+```
+$ sudo mkdir -p /var/opt/nginx-proxy-letsencrypt/my-ha.example.com
+$ sudo vi /var/opt/nginx-proxy-letsencrypt/my-ha.example.com/vpn.conf
+upstream vpn {
+  server        192.168.120.2:8123;
+}
+
+server {
+  listen        80;
+  server_name   my-ha.example.com;
+
+  location / {
+    proxy_pass  http://vpn/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+}
+```
+
+Create the start script
+  
+```
+$ sudo vi /var/opt/nginx-proxy-letsencrypt/my-ha.example.com.sh
+#!/bin/bash
+docker run \
+  --detach \
+  --restart always \
+  --name my-ha.example.com \
+  --env VIRTUAL_HOST=my-ha.example.com \
+  --env LETSENCRYPT_HOST=my-ha.example.com \
+  --env LETSENCRYPT_EMAIL="youremail@my-ha.example.com" \
+  --volume /var/opt/nginx-proxy-letsencrypt/my-ha.example.come/vpn.conf:/etc/nginx/conf.d/default.conf \
+  nginx:latest
+```
+  
+Start the nginx proxy  
+```
+$ sudo chmod /var/opt/nginx-proxy-letsencrypt/my-ha.example.com.sh
+$ sudo /var/opt/nginx-proxy-letsencrypt/my-ha.example.com.sh  
+```
+
+#### Configure HA to allow to be connected via the WireGuard tunnel on my-ha.example.com.sh
+  
+- Add this to configuration.yaml
+
+```
+# wireguard proxy
+# https://www.home-assistant.io/integrations/http#use_x_forwarded_for
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - !secret trusted_proxy_ip
+```
+  
+- put trusted_proxy_ip: in secret.yaml with 192.168.120.1   
+- restart
+- test if https://my-ha.example.com works
+
+
+#### Configure HA internal and external URLs
+  
+- Configuration / General
+- Scroll Down
+- External URL: https://my-ha.example.com/
+- Internal URL: http://homeassistant.local:8123/ 
+  
   
 ## Install HACS
 
