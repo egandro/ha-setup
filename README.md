@@ -165,7 +165,7 @@ $ cat publickey
 # exit
 ```
   
-Unfortunately there is no nice way to create keys on the plugin. So we use "wg" of the server.
+Unfortunately there is no nice way to create keys on client using the plugin. So we use "wg" of the server.
 
 ```
 $ mkdir -p clientkey
