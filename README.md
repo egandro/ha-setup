@@ -133,6 +133,20 @@ influxdb:
   
 Now you can configure your dashboards
   
+## Install HACS
+
+- This is a super cool community repository of Plugins / Drivers  
+- https://hacs.xyz/docs/installation/installation
+- Please install the "SSH & Web Terminal" in the Supervisor section of this document
+- SSH into HA  
+```
+$ wget -q -O - https://install.hacs.xyz | bash -
+```
+- Restart HA
+- Clear Browser Cache
+- Enable the HACS Integration: https://hacs.xyz/docs/configuration/basic
+- Configuration / Integrations / "+" Button / Search for HACS
+
   
 ## Additional Setup Steps
   
