@@ -57,6 +57,11 @@ zsh: true
 share_sessions: false
 packages: []
 init_commands: []
-````
+```
   
+### Almond
    
+- default setup - no config
+    
+### ESPHome
+  
