@@ -453,29 +453,50 @@ tts:
   
 - Configuration / Integrations / +
 - Local  IP Address
- 
+  
 ### Tapo: Cameras Control
   
 - Diver for Tapo Cam (C200, C210): https://github.com/JurajNyiri/HomeAssistant-Tapo-Control
-- Setup the camera with the app
+- Install HACS
+- HACS -> Explore & Add Repositories
+- Search for "Tapo: Camera Control"
+- Restart Server
+- Clear Browser Cache
+- Configuration / Integrations / + / Tapo: Cameras Control
+- You will need the email/passwort of the app
+
+  
+### Tapo: P100 Smart Plug
+  
+- Diver for Tapo P100 Smart Plug: https://github.com/fishbigger/HomeAssistant-Tapo-P100-Control
+- Setup the Plug with the app
 - Block all traffic to the internet on your router
 - SSH into HA
   
 ```
 $ cd config
 $ cd custom_components
-$ wget -O tapo_control.zip https://github.com/JurajNyiri/HomeAssistant-Tapo-Control/archive/refs/heads/main.zip 
-$ unzip tapo_control.zip
-$ mv HomeAssistant-Tapo-Control-main/custom_components/tapo_control .
-$ rm tapo_control.zip
-$ rm -rf HomeAssistant-Tapo-Control-main
+$ wget -O tapo_p100_control.zip https://github.com/fishbigger/HomeAssistant-Tapo-P100-Control/archive/refs/heads/main.zip
+$ unzip tapo_p100_control.zip
+$ mv HomeAssistant-Tapo-P100-Control-main/tapo_p100_control .
+$ rm tapo_p100_control.zip
+$ rm -rf HomeAssistant-Tapo-P100-Control-main
 ```
 
 - Restart Server
-- Clear Browser Cache
-- Configuration / Integrations / + / Tapo: Cameras Control
 - You will need the email/passwort of the app
-
+- put it in secret.yaml 
+  - tp_tapo_email: "might be the same as for the cam cloud password"
+  - tp_tapo_password: "might be the same as for the cam cloud password"
+- sample configuration for configuration.yaml
+  
+```
+switch:
+  - platform: tapo_p100_control
+    ip_address: 192.168.85.151
+    email: !secret tp_tapo_email
+    password: !secret tp_tapo_password
+```
   
 ### Broadlink (IR Sender / IP Remote control)
   
