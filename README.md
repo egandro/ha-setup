@@ -133,4 +133,28 @@ Put your ssh keys (private/pub) to ```/root/config/ssh_keys```
 ```
 $ chmod 600 /root/config/ssh_keys/*
 ```
+  
+### Enable BT Tracking (cell phone)
+  
+- make sure you paired your device and "trust" is enabled on HA in CLI
+- Add this to configuration.yaml
+
+```
+# https://community.home-assistant.io/t/ble-tracking-with-raspberry-pi-4/155593/9
+device_tracker:
+#  - platform: bluetooth_le_tracker
+#    interval_seconds: 10
+#    consider_home: 10
+#    new_device_defaults:
+#      track_new_devices: true
+  - platform: bluetooth_tracker
+    interval_seconds: 10
+    consider_home: 10
+    # enable this after your devices are found
+    #new_device_defaults:
+    #  track_new_devices: false
+```
+
+  
+  
 
