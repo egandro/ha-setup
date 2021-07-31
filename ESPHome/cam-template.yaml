@@ -1,0 +1,139 @@
+# https://esphome.io/components/esp32_camera.html?highlight=camera
+# https://gist.github.com/Snipercaine/d8345571563536e9661422c3509d1119
+# https://gist.github.com/Snipercaine/580f22637cc889fb2a9f36e18f772bb2
+
+substitutions:
+  build_in_button: "not available"
+  build_in_led: GPIO33 # https://randomnerdtutorials.com/esp32-cam-ai-thinker-pinout/
+  build_in_flash: GPIO4 # https://community.home-assistant.io/t/esp32-cam-working/109140/16
+  devicename: xcam-template
+  friendly_name: ESP xCam Tpl
+  ota_password: "b3daca36bda60ddf68fb2b0cd1ad0522" # create individual OTA password per device
+
+esphome:
+  name: $devicename
+  platform: ESP32
+  board: esp32cam # https://docs.platformio.org/en/latest/boards/espressif32/esp32cam.html
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: !secret esp_home_assistant_api_pw
+
+ota:
+  password: "$ota_password"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "$friendly_name Fallback Hotspot"
+    password: !secret esp_home_fallback_ap_pw
+
+captive_portal:
+
+switch:
+  - platform: restart # https://esphome.io/components/switch/restart.html
+    name: $friendly_name Restart
+  - platform: gpio
+    name: $friendly_name LED
+    pin:
+      number: $build_in_led
+      inverted: true
+  - platform: gpio
+    name: $friendly_name Flash Light
+    pin: $build_in_flash
+
+binary_sensor:
+  - platform: status
+    name: $friendly_name Status
+
+# https://esphome.io/components/web_server.html?highlight=rest
+#web_server:
+#  port: 80
+
+esp32_camera:
+  name: $friendly_name Camera
+  external_clock:
+    pin: GPIO0
+    frequency: 20MHz
+  i2c_pins:
+    sda: GPIO26
+    scl: GPIO27
+  data_pins: [GPIO5, GPIO18, GPIO19, GPIO21, GPIO36, GPIO39, GPIO34, GPIO35]
+  vsync_pin: GPIO25
+  href_pin: GPIO23
+  pixel_clock_pin: GPIO22
+  power_down_pin: GPIO32
+
+  # Image settings
+  max_framerate: 10fps
+  idle_framerate: 0.1 fps #default
+  resolution: 640x480 #1600x1200 #640x480 default
+  jpeg_quality: 10 # 1-64
+
+# https://esphome.io/components/status_led.html
+#status_led:
+#  pin:
+#    number: $build_in_led
+#    inverted: True
+
+## https://esphome.io/components/text_sensor/wifi_info.html
+##text_sensor:
+#  - platform: wifi_info
+#    ip_address:
+#      name: $friendly_name IP Address
+#    ssid:
+#      name: $friendly_name Connected SSID
+#    bssid:
+#      name: $friendly_name Connected BSSID
+#    mac_address:
+#      name: $friendly_name Mac Wifi Address
+#
+
+
+## https://esphome.io/components/text_sensor/version.html
+text_sensor:
+  - platform: version
+    name: $friendly_name Version
+##    hide_timestamp: True
+
+sensor:
+  - platform: uptime
+    name: $friendly_name Uptime
+    id: uptime_sensor
+
+# https://esphome.io/components/sensor/uptime.html
+#text_sensor:
+#  - platform: template
+#    name: $friendly_name Uptime
+#    id: uptime_human
+#    icon: mdi:clock-start
+
+#sensor:
+#  - platform: uptime
+#    name: $friendly_name Uptime (sec)
+#    id: uptime_sensor
+#    update_interval: 60s
+#    on_raw_value:
+#      then:
+#        - text_sensor.template.publish:
+#            id: uptime_human
+#            state: !lambda |-
+#              int seconds = round(id(uptime_sensor).raw_state);
+#              int days = seconds / (24 * 3600);
+#              seconds = seconds % (24 * 3600);
+#              int hours = seconds / 3600;
+#              seconds = seconds % 3600;
+#              int minutes = seconds /  60;
+#              seconds = seconds % 60;
+#              return (
+#                (days ? String(days) + "d " : "") +
+#                (hours ? String(hours) + "h " : "") +
+#                (minutes ? String(minutes) + "m " : "") +
+#                (String(seconds) + "s")
+#              ).c_str();
