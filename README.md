@@ -30,3 +30,33 @@ You need to pair modern cell phones in order to allow tracking. The not tracked 
 ### BT Audio
 
 - unsolved
+
+
+## Supervisor
+
+### File Editor
+
+- default setup - no config
+
+### SSH & Web Terminal
+
+- <User> / Advanced Mode on
+- Install the "SSH & Web Terminal" (from Home Assistant Community Add-ons)
+
+```
+ssh:
+  username: root
+  password: ''
+  authorized_keys: ['add your key here']
+  sftp: true
+  compatibility_mode: true
+  allow_agent_forwarding: false
+  allow_remote_port_forwarding: false
+  allow_tcp_forwarding: false
+zsh: true
+share_sessions: false
+packages: []
+init_commands: []
+````
+  
+   
