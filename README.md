@@ -91,6 +91,7 @@ esp_home_fallback_ap_pw: "0123456789"
 ```
   
 - Check ESPHome Template folder for templates.
+- Enable the entities in Configuration / Integration and use the ```esp_home_assistant_api_pw``` to connect
   
 ### InfluxDB
   
@@ -367,6 +368,17 @@ Put your ssh keys (private/pub) to ```/root/config/ssh_keys```
 $ chmod 600 /root/config/ssh_keys/*
 ```
 
+### Force the lovelace Dashboard to be the default one
+
+- Add this to configuration.yaml
+  
+```
+# https://www.home-assistant.io/lovelace/dashboards-and-views
+lovelace:
+  mode: storage
+```
+  
+  
 ## Setup Entities  
   
 ### Enable BT Tracking (cell phone)
@@ -388,6 +400,20 @@ device_tracker:
     # enable this after your devices are found
     #new_device_defaults:
     #  track_new_devices: false
+```
+
+### Ping hosts
+
+- Add this to configuration.yaml
+- please note: pinging a cell phone might not work because of powersafe mode    
+  
+```
+binary_sensor: 
+  - platform: ping #https://www.home-assistant.io/integrations/ping/
+    host: 192.168.100.114
+    name: "coffemaker_connected"
+    count: 2
+    scan_interval: 30
 ```
   
 ### FireTV / Android TV Boxes
@@ -416,6 +442,5 @@ tts:
   - platform: google_translate
     language: "de"
 ```  
-
   
 
