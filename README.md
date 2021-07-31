@@ -443,4 +443,26 @@ tts:
     language: "de"
 ```  
   
+### Show local IP
+  
+- Configuration / Integrations / +
+- Local  IP Address
+ 
+### Tapo: Cameras Control
+  
+- Diver for Tapo Cam (C200, C210): https://github.com/JurajNyiri/HomeAssistant-Tapo-Control
+- Setup the camera with the app
+- Block all traffic to the internet on your router
+- SSH into HA
+  
+```
+$ cd config
+$ cd custom_components
+$ wget -O tapo_control.zip https://github.com/JurajNyiri/HomeAssistant-Tapo-Control/archive/refs/heads/main.zip 
+$ unzip tapo_control.zip
+$ mv HomeAssistant-Tapo-Control-main tapo_control  
+$ rm tapo_control.zip
+```
 
+- Restart Server
+- Configuration / Integrations / + / Tapo: Cameras Control
