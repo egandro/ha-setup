@@ -92,9 +92,9 @@ esp_home_fallback_ap_pw: "0123456789"
 ### InfluxDB
   
 - default setup - no config file entries
-- open UI
+- open the UI
 - InfluxDB Admin / Databases / Create Database "homeassistant" (duration as you wish)
-- InfluxDB Admin / Users / Create User "homeassistant" (use a strong passwort, put this in secrets.yaml - key influxdb_password )
+- InfluxDB Admin / Users / Create User "homeassistant" (use a strong passwort, put this in secrets.yaml - key influxdb_password - no " )
 - InfluxDB Admin / Users / click user "homeassistant" / click permission / click "ALL" / click "Apply"
 - Add this to configuration.yaml
 
@@ -113,9 +113,16 @@ influxdb:
 ```
 
 - Restart Homeassistant and check if you get values in the Database.
+- open the UI
+- click "Explore"
+- you should see "homeassistant.autogen"
 
 
 ### Grafana
+  
+- Make sure InfluxDB is configured and created some data
+- default setup - no config file entries
+- open the UI
   
 ## Additional Setup Steps
   
