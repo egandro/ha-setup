@@ -135,7 +135,7 @@ Now you can configure your dashboards
   
 ## Install HACS
 
-- This is a super cool community repository of Plugins / Drivers  
+- This is a super cool community repository. It contains add-ons, plugins, drivers, ...  
 - https://hacs.xyz/docs/installation/installation
 - Please install the "SSH & Web Terminal" in the Supervisor section of this document
 - SSH into HA  
