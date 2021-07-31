@@ -25,11 +25,11 @@
 You need to pair modern cell phones in order to allow tracking. The not tracked BT Mac is randomized.
 
 - Tutorial https://kofler.info/bluetooth-konfiguration-im-terminal-mit-bluetoothctl/ (German)
-- You need to "trust" the MAC in order to automatic pair them on boot
+- You need to "trust" the MAC in order to allow automatic reconnect on boot
 
 ### BT Audio
 
-- unsolved
+- unsolved - sort of sucks with HA
 
 
 ## Supervisor
