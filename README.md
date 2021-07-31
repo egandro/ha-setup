@@ -124,6 +124,15 @@ influxdb:
 - Make sure InfluxDB is configured and created some data
 - default setup - no config file entries
 - open the UI
+- Configuration / Add data source / InfluxDB
+- HTTP / URL: http://a0d7b954-influxdb:8086
+- InfluxDB Details / Database: homeassistant
+- InfluxDB Details / User: homeassistant
+- InfluxDB Details / Password: (secrets.yaml - influxdb_password key)
+- Click Save & Test
+  
+Now you can configure your dashboards
+  
   
 ## Additional Setup Steps
   
