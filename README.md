@@ -94,7 +94,7 @@ esp_home_fallback_ap_pw: "0123456789"
 - default setup - no config file entries
 - open the UI
 - InfluxDB Admin / Databases / Create Database "homeassistant" (duration as you wish)
-- InfluxDB Admin / Users / Create User "homeassistant" (use a strong passwort, put this in secrets.yaml - key influxdb_password - no " )
+- InfluxDB Admin / Users / Create User "homeassistant" (use a strong passwort, put this in secrets.yaml - key influxdb_password)
 - InfluxDB Admin / Users / click user "homeassistant" / click permission / click "ALL" / click "Apply"
 - Add this to configuration.yaml
 
