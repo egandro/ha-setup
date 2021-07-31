@@ -36,7 +36,7 @@ You need to pair modern cell phones in order to allow tracking. The not tracked 
 
 ### File Editor
 
-- default setup - no config
+- default setup - no config file entries
 
 ### SSH & Web Terminal
 
@@ -62,11 +62,11 @@ init_commands: []
   
 ### Almond
    
-- default setup - no config
+- default setup - no config file entries
     
 ### ESPHome
   
-- default setup - no config
+- default setup - no config file entries
   
 Link the secrets.yml file:
   
@@ -90,7 +90,12 @@ esp_home_fallback_ap_pw: "0123456789"
 - Check ESPHome Template folder for templates.
   
 ### InfluxDB
-
+  
+- default setup - no config file entries
+- open UI
+- InfluxDB Admin / Databases / Create Database "homeassistant" (duration as you wish)
+- InfluxDB Admin / Users / Create User "homeassistant" (use a strong passwort, put this in secrets.yaml - key influxdb_password )
+- InfluxDB Admin / Users / click user "homeassistant" / click permission / click "ALL" / click "Apply"
 
 Add this to configuration.yaml
 
