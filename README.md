@@ -66,3 +66,12 @@ init_commands: []
     
 ### ESPHome
   
+- default setup - no config
+  
+Link the secrets.yml file:
+  
+```
+# ~ $ cd config
+# config $ cd esphome/
+# esphome $ ln -s ../secrets.yaml secrets.yaml
+```
