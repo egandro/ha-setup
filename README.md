@@ -432,6 +432,12 @@ media_player:
     get_sources: false
 ```
 
+- Turn on you TV / Screen
+- Turn on your FireTV / Android TV Box
+- Enable remote debugging (check Fire TV docs)
+- Restart Homeassistant
+- If this is the first time an Android Debug dialog will pop up to trust the hostkey of Home assistant.
+
 ### Text to speech local language support
   
 - Add this to configuration.yaml
