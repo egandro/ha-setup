@@ -42,7 +42,8 @@ You need to pair modern cell phones in order to allow tracking. The not tracked 
 
 - <User> / Advanced Mode on
 - Install the "SSH & Web Terminal" (from Home Assistant Community Add-ons)
-
+- We need the ```compatibility_mode: true``` in order to make the MS SSH FS plugin to working: ms-vscode-remote.remote-ssh
+  
 ```
 ssh:
   username: root
