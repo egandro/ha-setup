@@ -366,6 +366,8 @@ Put your ssh keys (private/pub) to ```/root/config/ssh_keys```
 ```
 $ chmod 600 /root/config/ssh_keys/*
 ```
+
+## Setup Entities  
   
 ### Enable BT Tracking (cell phone)
   
@@ -387,7 +389,22 @@ device_tracker:
     #new_device_defaults:
     #  track_new_devices: false
 ```
+  
+### FireTV / Android TV Boxes
+  
+```
+media_player:
+  # Use the Python ADB implementation
+  - platform: androidtv
+    name: Fire TV
+    host: 192.168.100.42
+    device_class: firetv
+    #adb_server_ip: 127.0.0.1
+    #adb_server_port: 5037
+    get_sources: false
+```
 
   
+
   
 
