@@ -31,8 +31,9 @@ You need to pair modern cell phones in order to allow tracking. The not tracked 
 
 - unsolved - sort of sucks with HA
 
-
 ## Supervisor
+
+- All add-ons are installed with start at boot, watchdog, autoupdate, show in taskbar
 
 ### File Editor
 
@@ -59,6 +60,8 @@ share_sessions: false
 packages: []
 init_commands: []
 ```
+  
+- test with ssh, putty, scp, WinSCP, Visual Studio Code with the "ms-vscode-remote.remote-ssh" plugin
   
 ### Almond
    
