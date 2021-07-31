@@ -87,3 +87,19 @@ esp_home_assistant_api_pw: "0123456789"
 esp_home_fallback_ap_pw: "0123456789"
 ```
   
+- Check ESPHome Template folder for templates.
+  
+### InfluxDB
+
+### Grafana
+  
+## Additional Setup Steps
+  
+### SSH Keys (required to run scripts from HA -> other systems)
+  
+Put your ssh keys (private/pub) to ```/root/config/ssh_keys```
+  
+```
+$ chmod 600 /root/config/ssh_keys/*
+```
+
