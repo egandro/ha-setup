@@ -10,5 +10,23 @@
 ## Base HA Setup in ESXi
 
 - Download VMDK: "Windows setup" (duno what this has to do with Windows...) - https://www.home-assistant.io/installation/windows
+- Add a USB Controller 2.0
 - HA installation in ESXi (Disk needs to be attached as IDE0, EFI Boot must be enabled - https://community.home-assistant.io/t/hass-io-on-vmware-esxi-6-7-step-by-step/151419
 
+
+## Setup Bluetooth in ESXi
+
+- I inserted a BT Dongle (3-5€ Amazon/Ebay BT 3,4,5...) to one of the ESXi BT Ports
+- In the Edit Settings tab add the detectd USB Device to the VM. https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.vm_admin.doc/GUID-507F65CD-E855-4527-B076-567F27C98A29.html
+
+
+### Paring
+
+You need to pair modern cell phones in order to allow tracking. The not tracked BT Mac is randomized.
+
+- Tutorial https://kofler.info/bluetooth-konfiguration-im-terminal-mit-bluetoothctl/ (German)
+- You need to "trust" the MAC in order to automatic pair them on boot
+
+### BT Audio
+
+- unsolved
