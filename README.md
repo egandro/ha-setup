@@ -561,3 +561,7 @@ switch:
          command_on: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 whatever"
          command_off: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 whatever"
 ```
+
+## Tools
+  
+- official icons: https://materialdesignicons.com/icon/
