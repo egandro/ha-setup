@@ -134,7 +134,59 @@ influxdb:
 - InfluxDB Details / Password: (secrets.yaml - influxdb_password key)
 - Click Save & Test
   
-Now you can configure your dashboards
+Now you can configure your dashboards.
+  
+### WireGuard Client
+  
+- This is no standard add on.
+- Supervisor / Add-on Store - click on top right burger menu / enter "https://github.com/bigmoby/hassio-repository-addon"
+- Install "Home Assistant Bigmoby Add-ons"
+  
+#### Configure Debian als WG Server
+
+- Reference: https://www.cyberciti.biz/faq/debian-10-set-up-wireguard-vpn-server/
+- IP Adress is public
+- The IP adress gets a CNAME e.g. my-ha.example.com
+  
+```
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo sh -c "echo 'deb http://deb.debian.org/debian buster-backports main contrib non-free' > /etc/apt/sources.list.d/buster-backports.list"
+$ cat /etc/apt/sources.list.d/buster-backports.list
+$ sudo apt update
+$ apt search wireguard
+$ sudo apt install wireguard
+$ sudo -i
+# cd /etc/wireguard/
+# umask 077; wg genkey | tee privatekey | wg pubkey > publickey
+# ls -l privatekey publickey
+# cat privatekey
+## Please note down the private of the server key ##
+# cat publickey
+## Please note down the public of the server key ##
+# exit
+```
+  
+Create a wg0.conf file on the server
+
+```
+$ sudo vim /etc/wireguard/wg0.conf
+[Interface]
+Address = 192.168.120.1/24
+ListenPort = 51194
+PrivateKey = <privatekey_of_the_server>
+
+[Peer]
+PublicKey = <publickey_of_the_client - you don't have this now - change it later>
+AllowedIPs = 192.168.120.0/24
+```
+  
+```
+$ sudo ufw allow 51194/udp # if ufw is enable
+$ sudo systemctl enable wg-quick@wg0
+$ sudo systemctl start wg-quick@wg0
+$ sudo systemctl status wg-quick@wg0
+```
   
 ## Install HACS
 
