@@ -468,3 +468,4 @@ $ rm -rf HomeAssistant-Tapo-Control-main
 - Restart Server
 - Clear Browser Cache
 - Configuration / Integrations / + / Tapo: Cameras Control
+- You will need the email/passwort of the app
