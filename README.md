@@ -546,3 +546,18 @@ shell_command:
   ### turn_off_pc: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 sudo pm-hibernate"
 ```
   
+### Generic Shell based switch
+  
+- This might be stupid, as the state is saved "on/off"
+- You might want to go with a script or a shell command
+- sample config for configuration.yaml
+  
+```
+switch:
+  - platform: command_line
+    switches:
+      my_cool_switch:
+         friendly_name: The coolest switch
+         command_on: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 whatever"
+         command_off: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 whatever"
+```
