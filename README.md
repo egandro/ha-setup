@@ -462,9 +462,31 @@ tts:
 - Search for "Tapo: Camera Control"
 - Restart Server
 - Clear Browser Cache
-- Configuration / Integrations / + / Tapo: Cameras Control
+- Configuration / Integrations / + / Tapo: Cameras Control (use main branch)
 - You will need the email/passwort of the app
-
+- sample configuration.yml entry to enable/disable camera
+  
+```
+switch:  
+   # https://community.home-assistant.io/t/make-scripts-as-toggle-switch/158688/11
+  - platform: template
+    switches:
+      c210_enabled_mode:
+        friendly_name: C210 enabled 
+        value_template: "{{ is_state_attr('camera.tapo_camera_c956_hd', 'privacy_mode', 'off') }}"
+        turn_on:
+          service: tapo_control.set_privacy_mode
+          target:
+            entity_id: camera.tapo_camera_c956_hd
+          data:
+            privacy_mode: 'off'
+        turn_off:
+          service: tapo_control.set_privacy_mode
+          target:
+            entity_id: camera.tapo_camera_c956_hd
+          data:
+            privacy_mode: 'on'
+ ```
   
 ### Tapo: P100 Smart Plug
   
