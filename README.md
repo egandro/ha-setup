@@ -377,6 +377,19 @@ $ chmod 600 /root/config/ssh_keys/*
 lovelace:
   mode: storage
 ```
+
+### Config Check
+  
+- Adds a better service to check the configuraton e.g. in services
+- can be installed via HACS
+- https://github.com/custom-components/config_check
+
+
+### Auto Backup
+  
+- Cron like backup of the configuration
+- can be installed via HACS
+- https://github.com/jcwillox/hass-auto-backup
   
   
 ## Setup Entities  
