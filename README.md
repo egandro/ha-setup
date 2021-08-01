@@ -396,7 +396,7 @@ device_tracker:
 #      track_new_devices: true
   - platform: bluetooth_tracker
     interval_seconds: 10
-    consider_home: 10
+    consider_home: 30
     # enable this after your devices are found
     #new_device_defaults:
     #  track_new_devices: false
