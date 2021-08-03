@@ -597,6 +597,28 @@ switch:
          command_off: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 whatever"
 ```
 
+## Lovelace customizing
+  
+### lovelace_gen
+
+- Adds a super simple handling of lovelace dashboards
+- can be installed via HACS
+- https://github.com/thomasloven/hass-lovelace_gen
+- After installing via HACS - restart Home Assistant - after that
+- Add this to configuration.yaml
+  
+```
+lovelace_gen:
+
+lovelace:
+  mode: yaml
+```  
+  
+- Restart Home Assistant again
+- Configuration / Lovelace Dashboards / Add
+- create a new Dashboard, click on the Name (not Edit) "Make this default on this device"
+- With edit you can customize / add tabs
+  
 ## Tools
   
 - official icons: https://materialdesignicons.com/icon/
