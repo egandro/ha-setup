@@ -1,5 +1,8 @@
 # Flash Tasmota to SP112
 
+## Flash
+
+
 - Tutorial: https://www.youtube.com/watch?v=tx6T4C9w-lw (German)
 
 Code: (on RaspianOS - you need a Cellphone as WIFI Bridge)
@@ -18,3 +21,7 @@ sudo ./install_prereq.sh
  
 sudo ./start_flash.sh
 ```
+
+## Setup
+
+- Tutorial: https://www.youtube.com/watch?v=qIY7EWpsICM (German)
