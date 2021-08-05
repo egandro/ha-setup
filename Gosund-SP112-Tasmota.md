@@ -1,11 +1,11 @@
-# Flash Tasmota to SP112
+# Tasmota OTA on a Gosund SP112
 
 ## Flash
 
 
 - Tutorial: https://www.youtube.com/watch?v=tx6T4C9w-lw (German)
 
-Code: (on RaspianOS - you need a Cellphone as WIFI Bridge)
+Code: (on RaspianOS - you need a cell phone as WIFI Bridge)
 
 ```
 sudo apt-get update
