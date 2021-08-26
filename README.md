@@ -596,6 +596,11 @@ switch:
          command_on: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 whatever"
          command_off: "ssh -i /config/ssh_keys/id_rsa -p 22 -o StrictHostKeyChecking=no user@192.168.134.24 whatever"
 ```
+  
+### ESXi statistics plugin
+
+- needs HACS
+- https://github.com/wxt9861/esxi_stats
 
 ## Lovelace customizing
   
