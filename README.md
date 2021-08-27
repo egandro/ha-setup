@@ -601,6 +601,7 @@ switch:
 
 - needs HACS
 - https://github.com/wxt9861/esxi_stats
+- needs hacks :( https://github.com/wxt9861/esxi_stats/issues/57
 
 ## Lovelace customizing
   
@@ -614,9 +615,6 @@ switch:
   
 ```
 lovelace_gen:
-
-lovelace:
-  mode: yaml
 ```  
   
 - Restart Home Assistant again
