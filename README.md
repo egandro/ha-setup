@@ -240,6 +240,7 @@ $ sudo vi /var/opt/nginx-proxy-letsencrypt/start.sh
 
 mkdir -p /var/opt/nginx-proxy-letsencrypt
 
+# new image https://github.com/nginx-proxy/nginx-proxy
 docker run \
   --detach \
   --restart always \
@@ -252,6 +253,7 @@ docker run \
   --volume /var/opt/nginx-proxy-letsencrypt/nginx-html:/usr/share/nginx/html \
   jwilder/nginx-proxy
 
+# new image https://github.com/nginx-proxy/acme-companion
 docker run \
   --detach \
   --restart always \
